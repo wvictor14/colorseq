@@ -1,6 +1,6 @@
 Package: colorseq
 Title: colors biological sequences using html
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person("Victor", "Yuan", , "victor.2wy@gmail.com", role = c("aut", "cre"))
 Description: This package contains functions to apply various color schemes to
