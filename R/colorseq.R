@@ -1,10 +1,3 @@
-
-#'
-#'
-# on 1 string
-one_seq <- aa_seq$seq[1]
-.color_sequence(one_seq)
-
 #' Applies html coloring to biological sequences
 #'
 #' Takes a vector of biological sequences and applies html coloring. Coloring
@@ -17,7 +10,7 @@ one_seq <- aa_seq$seq[1]
 #'
 #' - "clustal": https://www.bioinformatics.nl/~berndb/aacolour.html
 #'
-#' @return
+#' @return vector of html colored sequences
 #' @export
 #'
 #' @examples
