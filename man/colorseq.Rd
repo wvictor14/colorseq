@@ -25,12 +25,14 @@ sequences based on these various properties.
 }
 \examples{
 library(gt)
+library(tibble)
+library(dplyr)
 data(aa_seq)
 
 # compare in gt
 one_seq <- aa_seq$seq[1]
 tibble(
-  seq = .color_sequence(one_seq),
+  seq = colorseq(one_seq),
   seq_raw = one_seq
 ) |>
   gt() |>
@@ -38,7 +40,7 @@ tibble(
 
 # in a dplyr pipe
 aa_seq |>
-  mutate(seq_colored = .color_sequence(seq)) |>
+  mutate(seq_colored = colorseq(seq)) |>
   select(name, everything()) |>
   gt() |>
   fmt_markdown() |>

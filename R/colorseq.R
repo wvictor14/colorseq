@@ -15,12 +15,14 @@
 #'
 #' @examples
 #' library(gt)
+#' library(tibble)
+#' library(dplyr)
 #' data(aa_seq)
 #'
 #' # compare in gt
 #' one_seq <- aa_seq$seq[1]
 #' tibble(
-#'   seq = .color_sequence(one_seq),
+#'   seq = colorseq(one_seq),
 #'   seq_raw = one_seq
 #' ) |>
 #'   gt() |>
@@ -28,7 +30,7 @@
 #'
 #' # in a dplyr pipe
 #' aa_seq |>
-#'   mutate(seq_colored = .color_sequence(seq)) |>
+#'   mutate(seq_colored = colorseq(seq)) |>
 #'   select(name, everything()) |>
 #'   gt() |>
 #'   fmt_markdown() |>
@@ -40,23 +42,23 @@
 #' )
 colorseq <- function(seq, color_scheme = 'clustal') {
 
-  stopifnot(color_schem %in% names(.seq_colors))
+  stopifnot(color_scheme %in% names(seq_colors))
 
   # split elements
   .splitted <- seq |>
-    map(
-      ~tibble(
+    purrr::map(
+      ~tibble::tibble(
         position = 1:nchar(.x),
         element = stringr::str_split_1(.x, '')
       )
     ) |>
-    bind_rows(.id = 'id')
+    dplyr::bind_rows(.id = 'id')
 
   # apply colors
   .out <- .splitted |>
 
     # add colors
-    dplyr::left_join(.seq_colors[[color_scheme]], by = 'element') |>
+    dplyr::left_join(seq_colors[[color_scheme]], by = 'element') |>
     dplyr::mutate(color = ifelse(is.na(color), 'grey', color)) |>
 
     # apply colors
