@@ -22,11 +22,11 @@ c_aa_clustal <- tribble(
   tidyr::unnest(element)
 
 # collect color schemes
-.seq_colors <- list(
+seq_colors <- list(
   'clustal' = c_aa_clustal
 )
 
-use_data(.seq_colors)
+use_data(seq_colors)
 
 # example data
 protein_sequences <- system.file("extdata", "sample.fasta", package = "ggmsa")
