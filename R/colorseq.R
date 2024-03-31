@@ -19,6 +19,9 @@
 #' library(dplyr)
 #' data(aa_seq)
 #'
+#' colorseq(aa_seq$seq[1])
+#' colorseq(aa_seq$seq[1:2])
+#'
 #' # compare in gt
 #' one_seq <- aa_seq$seq[1]
 #' tibble(
@@ -40,7 +43,7 @@
 #'     columns = contains('seq')
 #'   )
 #' )
-colorseq <- function(seq, color_scheme = 'clustal') {
+colorseq <- function(seq, color_scheme = 'clustal', spacing = 2) {
 
   stopifnot(color_scheme %in% names(seq_colors))
 
@@ -70,6 +73,13 @@ colorseq <- function(seq, color_scheme = 'clustal') {
       seq_colored = stringr::str_c(seq_colored, collapse = '')
     ) |>
     dplyr::pull(seq_colored)
+
+  # spacing
+  .out <- stringr::str_c(
+    glue::glue('<p style = "letter-spacing:{spacing}px">'),
+    .out,
+    '</p>'
+  )
 
   return(.out)
 }
