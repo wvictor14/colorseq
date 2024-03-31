@@ -10,23 +10,37 @@ library(msa)
 library(purrr)
 
 # color scheme
-c_aa_clustal <- tribble(
+c_aa_clustal <- tibble::tribble(
   ~ group, ~color,
-  'G, P, S, T',	'orange',
-  'H, K, R',	  'red',
-  'F, W, Y',	  'blue',
-  'I, L, M, V',	'green',
-  'D, E',       'purple'
+  'G, P, S, T',	'#FAAE32FF',
+  'H, K, R',	  '#F06A63FF',
+  'F, W, Y',	  '#7D9FC2FF',
+  'I, L, M, V',	'#51806AFF',
+  'D, E',       '#A092B7FF'
 ) |>
-  mutate(element = stringr::str_split(group, ', ')) |>
+  dplyr::mutate(element = stringr::str_split(group, ', ')) |>
   tidyr::unnest(element)
+
+
+c_aa_chemistry <- tibble::tribble(
+  ~ group, ~color,
+  'P, A, V, M, L, I, G',	'#FAAE32FF',
+  'E, D',	                '#F06A63FF',
+  'K, R',	                '#7D9FC2FF',
+  'N, T, C, Q, S',	      '#51806AFF',
+  '-',                    'white'
+) |>
+  dplyr::mutate(element = stringr::str_split(group, ', ')) |>
+  tidyr::unnest(element)
+
 
 # collect color schemes
 seq_colors <- list(
-  'clustal' = c_aa_clustal
+  'clustal' = c_aa_clustal,
+  'chemistry' = c_aa_chemistry
 )
 
-use_data(seq_colors)
+use_data(seq_colors, overwrite = TRUE)
 
 # example data
 protein_sequences <- system.file("extdata", "sample.fasta", package = "ggmsa")
